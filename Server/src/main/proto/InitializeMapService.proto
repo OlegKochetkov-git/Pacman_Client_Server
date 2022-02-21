@@ -1,0 +1,23 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package proto;
+
+service InitializeMapService {
+  rpc generateMap(google.protobuf.Empty) returns (GetMapGenerateResponse);
+  rpc getMapSize(google.protobuf.Empty) returns (GetMapSizeResponse);
+}
+
+message GetMapGenerateResponse {
+  repeated CellCoordinates Coordinates = 1;
+}
+
+message CellCoordinates {
+  int32 x = 1;
+  int32 y = 2;
+  bool isObstacle = 3;
+}
+
+message GetMapSizeResponse {
+  int32 width = 1;
+  int32 height = 2;
+}

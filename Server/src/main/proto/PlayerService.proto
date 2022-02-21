@@ -1,0 +1,43 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package proto;
+
+service PlayerService {
+  rpc assignIdToClient (google.protobuf.Empty) returns (ConnectResponse);
+  rpc spawnPlayer (google.protobuf.Empty) returns (SpawnPlayerResponse);
+  rpc movePlayer (stream MovementRequest) returns (stream MovementResponse);
+  rpc moveOtherPlayersOnSenderMap (stream MoveOtherPlayerOnMapRequest)
+      returns (stream CurrentCoordinatesOtherPlayersResponse);
+}
+
+message ConnectResponse{
+  int32 id = 1;
+}
+
+message SpawnPlayerResponse {
+  int32 coordinateX = 1;
+  int32 coordinateY = 2;
+}
+
+message MovementRequest{
+  bool up = 1;
+  bool down = 2;
+  bool right = 3;
+  bool left = 4;
+  int32 id = 5;
+}
+
+message MovementResponse {
+  float coordinateX = 1;
+  float coordinateY = 2;
+}
+
+message MoveOtherPlayerOnMapRequest {
+  int32 id = 1;
+}
+
+message CurrentCoordinatesOtherPlayersResponse {
+  int32 coordinateX = 1;
+  int32 coordinateY = 2;
+  int32 id = 3;
+}
